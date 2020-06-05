@@ -3,16 +3,27 @@ let http = require('http')
 let path = require('path')
 let reload = require('reload')
 let bodyParser = require('body-parser')
+const logger = require("morgan")
 let app = express();
+const sass = require('node-sass-middleware');
+const fs = require('fs-extra');
 
-let publicDir = path.join(__dirname, 'public')
+fs.removeSync('/public/styles');
+
 app.set('port', process.env.PORT || 3000)
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/public'));
+app.use(logger("dev"))
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join(publicDir, 'index.html'))
-})
+let srcPath = __dirname + '/shared/sass';
+let destPath = path.join(__dirname, '/public/styles');
+
+app.use('/styles', sass({
+    src: srcPath,
+    dest: destPath,
+    debug: true,
+    outputStyle: 'expanded'
+}));
 
 let server = http.createServer(app)
 reload(app).then(function (reloadReturned) {
