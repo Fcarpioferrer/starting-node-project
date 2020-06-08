@@ -4,7 +4,8 @@
   "description": "",
   "main": "./src/index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js -e html,js,css, scss"
+    "start": "nodemon ./src/index.js -e html,js,css",
+    "sass:compile": "node-sass --include-path sass ./src/shared/sass/main.scss ./src/public/styles/main.css"
   },
   "keywords": [],
   "author": "",
