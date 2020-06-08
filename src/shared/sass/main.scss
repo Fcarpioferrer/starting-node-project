@@ -1,6 +1,2 @@
-
-$primary: black;
-
-.bg-primary{
-  background: $primary !important;
-}
+@import "variables";
+@import "helpers";

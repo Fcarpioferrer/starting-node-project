@@ -7,7 +7,8 @@ const logger = require("morgan")
 let app = express();
 const sass = require('node-sass-middleware');
 const fs = require('fs-extra');
-
+const {watch} = require('fs');
+const cmd = require("child_process");
 fs.removeSync('/public/styles');
 
 app.set('port', process.env.PORT || 3000)
@@ -18,6 +19,11 @@ app.use(logger("dev"))
 let srcPath = __dirname + '/shared/sass';
 let destPath = path.join(__dirname, '/public/styles');
 
+
+watch('./src/shared/sass').addListener('change', (eventType, filename) => {
+    cmd.exec("yarn sass:compile");
+});
+
 app.use('/styles', sass({
     src: srcPath,
     dest: destPath,
@@ -25,10 +31,11 @@ app.use('/styles', sass({
     outputStyle: 'expanded'
 }));
 
+
 let server = http.createServer(app)
 reload(app).then(function (reloadReturned) {
     server.listen(app.get('port'), function () {
-        console.log('Web server started on ' + new URL('http://localhost:' + app.get('port')))
+        console.log('Web server started on ' + new URL('http://localhost:' + app.get('port')));
     })
 }).catch(function (err) {
     console.error('Reload could not start, could not start server/sample app', err)
