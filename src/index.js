@@ -13,10 +13,12 @@ fs.removeSync('/public/_styles');
 
 app.set('port', process.env.PORT || 3000)
 app.use(bodyParser.json())
+
+app.use("/", express.static(__dirname))
 app.use(express.static(__dirname + '/public'));
-app.use('/node_modules', express.static(__dirname.replace("src", "") + 'node_modules'))
-app.use(logger("dev"))
-console.log('/node_modules')
+app.use('/node_modules', express.static('node_modules'))
+app.use(logger("dev"));
+
 let srcPath = __dirname + '/shared/sass';
 let destPath = path.join(__dirname, '/public/_styles');
 
