@@ -5,13 +5,14 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "nodemon ./src/index.js -e html,js,css",
-    "sass:compile": "node-sass --include-path sass ./src/shared/sass/main.scss ./src/public/styles/main.css"
+    "sass:compile": "node-sass --include-path sass ./src/shared/sass/main.scss src/public/_styles/main.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "fs-extra": "^9.0.1",

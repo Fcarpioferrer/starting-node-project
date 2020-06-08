@@ -9,7 +9,7 @@ const sass = require('node-sass-middleware');
 const fs = require('fs-extra');
 const {watch} = require('fs');
 const cmd = require("child_process");
-fs.removeSync('/public/styles');
+fs.removeSync('/public/_styles');
 
 app.set('port', process.env.PORT || 3000)
 app.use(bodyParser.json())
@@ -17,14 +17,14 @@ app.use(express.static(__dirname + '/public'));
 app.use(logger("dev"))
 
 let srcPath = __dirname + '/shared/sass';
-let destPath = path.join(__dirname, '/public/styles');
+let destPath = path.join(__dirname, '/public/_styles');
 
 
 watch('./src/shared/sass').addListener('change', (eventType, filename) => {
     cmd.exec("yarn sass:compile");
 });
 
-app.use('/styles', sass({
+app.use('/_styles', sass({
     src: srcPath,
     dest: destPath,
     debug: true,
