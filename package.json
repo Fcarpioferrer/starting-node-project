@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "nodemon ./src/index.js -e html,js,css",
-    "sass:compile": "node-sass --include-path sass ./src/shared/sass/main.scss src/public/_styles/main.css"
+    "sass:compile": "node-sass --include-path sass src/public/sass/main.scss src/public/_styles/main.css"
   },
   "keywords": [],
   "author": "",

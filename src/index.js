@@ -19,13 +19,19 @@ app.use(express.static(__dirname + '/public'));
 app.use('/node_modules', express.static('node_modules'))
 app.use(logger("dev"));
 
-let srcPath = __dirname + '/shared/sass';
+let srcPath = __dirname + '/public/sass';
 let destPath = path.join(__dirname, '/public/_styles');
 
 
-watch('./src/shared/sass').addListener('change', (eventType, filename) => {
+watch('./src/public/sass').addListener('change', (eventType, filename) => {
     cmd.exec("yarn sass:compile");
 });
+
+watch('./src').addListener('change', (eventType, filename) => {
+    cmd.exec("yarn sass:compile");
+});
+
+
 
 app.use('/_styles', sass({
     src: srcPath,
